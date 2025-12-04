@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="kz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Setting</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .sidebar {
+            width: 80px;
+            flex-shrink: 0;
+        }
+        .main-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            flex: 1;
+            min-width: 0;
+        }
+        .header {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .header-left h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .header-left p {
+            font-size: 13px;
+            color: #999;
+        }
+        .header-right {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .search-box {
+            width: 250px;
+            padding: 10px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background: #f9f9f9;
+            font-size: 13px;
+            color: #999;
+        }
+        .profile-section {
+            border: 2px solid #5b9fff;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+        .profile-info {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .profile-details h2 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .profile-details p {
+            font-size: 13px;
+            color: #999;
+        }
+        .edit-btn {
+            background: #5b9fff;
+            color: white;
+            border: none;
+            padding: 8px 24px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .form-group input,
+        .form-group select {
+            padding: 10px 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #999;
+            background: #f9f9f9;
+        }
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+        .email-section {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+        .email-section h3 {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .email-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+        .email-checkbox {
+            width: 18px;
+            height: 18px;
+            background: #5b9fff;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+        .email-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .email-info p:first-child {
+            font-size: 13px;
+            color: #333;
+        }
+        .email-info p:last-child {
+            font-size: 12px;
+            color: #999;
+        }
+        .add-email {
+            color: #5b9fff;
+            font-size: 13px;
+            padding: 10px 0;
+            cursor: pointer;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                gap: 15px;
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 20px;
+            }
+            .header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .header-right {
+                width: 100%;
+                flex-direction: column;
+            }
+            .search-box {
+                width: 100%;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .profile-header {
+                flex-direction: column;
+            }
+            .profile-info {
+                flex-direction: column;
+            }
+            .profile-section {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .main-content {
+                padding: 15px;
+            }
+            .header-left h1 {
+                font-size: 20px;
+            }
+            .profile-section {
+                padding: 12px;
+            }
+            .avatar {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main-content">
+            <div class="header">
+                <div class="header-left">
+                    <h1>Welcome, Kur0chka!</h1>
+                    <p>04 Dec 2025</p>
+                </div>
+                <div class="header-right">
+                    <input type="text" class="search-box" placeholder="Search">
+                    <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">K</div>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <div class="profile-header">
+                    <div class="profile-info">
+                        <div class="avatar">K</div>
+                        <div class="profile-details">
+                            <h2>Beken Medetbek</h2>
+                            <p>Kur0chka15cc@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="edit-btn">Edit</div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="Your Full Name">
+                    </div>
+                    <div class="form-group">
+                        <label>Nick Name</label>
+                        <input type="text" placeholder="Your Nick Name">
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select>
+                            <option>Your Gender</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Country</label>
+                        <select>
+                            <option>Your Country</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Language</label>
+                        <select>
+                            <option>Your Language</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Time Zone</label>
+                        <select>
+                            <option>Your Time Zone</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="email-section">
+                    <h3>My email Address</h3>
+                    <div class="email-item">
+                        <div class="email-checkbox"></div>
+                        <div class="email-info">
+                            <p>kur0chka15cc@gmail.com</p>
+                            <p>1 days ago</p>
+                        </div>
+                    </div>
+                    <div class="add-email">+ Add Email Address</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
